@@ -1,6 +1,6 @@
 
-from cloud_service.logs_providers import CloudWachService
-from cloud_service.storage_providers import S3Service
+from cloud_services.logs_providers import CloudWachService
+from cloud_services.storage_providers import S3Service
 
 
 def get_cloud_service(cloud, service):

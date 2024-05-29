@@ -13,7 +13,7 @@ COPY ./requirements.txt /code/requirements.txt
 # 
 RUN pip install --upgrade -r /code/requirements.txt
 
-COPY ./cloud_service /code/cloud_service
+COPY ./cloud_services /code/cloud_services
 COPY ./tests /code/tests
 COPY ./setup.py /code/setup.py
 COPY ./cloud_services.egg-info /code/cloud_services.egg-info

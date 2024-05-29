@@ -7,7 +7,7 @@ services:
     ports:
       - "8002:80"
     volumes:
-      - ./cloud_service:/code/cloud_service
+      - ./cloud_services:/code/cloud_services
       - ./tests:/code/tests
       - ./setup.py:/code/setup.py
       - ./cloud_services.egg-info:/code/cloud_services.egg-info

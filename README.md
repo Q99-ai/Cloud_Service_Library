@@ -5,7 +5,7 @@ This library provides an interfase to connect to different cloud providers servi
 
 import the methoh get_cloud_service() and pass as parameter the cloud provider and the service you want to use
 
-from cloud_service import get_cloud_service
+from cloud_services import get_cloud_service
 
 log_service = get_cloud_service("aws", "logging")
 
