@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  cloud_provider:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8002:80"
+    volumes:
+      - ./cloud_service:/code/cloud_service
+      - ./tests:/code/tests
+      - ./setup.py:/code/setup.py
+      - ./cloud_services.egg-info:/code/cloud_services.egg-info
+      - ./dist:/code/dist
+      - ./build:/code/build
+    stdin_open: true  
+    tty: true  
+    environment:
+      - AWS_KEY=aws_key
+      - AWS_SECRET=aws_secret
+      - AWS_REGION=us-east-1
