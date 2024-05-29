@@ -1,0 +1,7 @@
+setup.py
+cloud_services.egg-info/PKG-INFO
+cloud_services.egg-info/SOURCES.txt
+cloud_services.egg-info/dependency_links.txt
+cloud_services.egg-info/requires.txt
+cloud_services.egg-info/top_level.txt
+tests/test_services.py
