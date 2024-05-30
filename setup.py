@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name='cloud_services',
     packages=find_packages(include=['cloud_services']),
-    version='0.1.1',
+    version='0.1.2',
     description='Library to connect to different cloud services',
     author='Q99',
     install_requires=["boto3"],

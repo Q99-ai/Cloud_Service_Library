@@ -4,7 +4,7 @@ import boto3
 from botocore.config import Config
 
 
-from cloud_services.env_vars import AWS_KEY, AWS_REGION, AWS_SECRET
+from cloud_services.env_vars import AWS_KEY, AWS_REGION, AWS_SECRET, AWS_URL
 
 class AbstractStorageService(ABC):
     @abstractmethod
@@ -23,6 +23,7 @@ class S3Service(AbstractStorageService):
     s3_default = {
         "aws_access_key_id": AWS_KEY,
         "aws_secret_access_key": AWS_SECRET,
+        "endpoint_url": AWS_URL,
     }
     def __init__(self):
         self.s3_client = boto3.client(
