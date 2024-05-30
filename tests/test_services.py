@@ -52,7 +52,7 @@ def test_aws_logging_service():
             'logEvents': [log_event]
         }
     
-    cloudwach_provider.emit_log(data)
+    cloudwach_provider.emit_log("log_group", "logstream", "test log")
 
     response = cloudwach_provider.logs_client.get_log_events(logGroupName="log_group", logStreamName="logstream")
     assert len(response['events']) == 1

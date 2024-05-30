@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from datetime import UTC, datetime
 import boto3
 from botocore.config import Config
 
@@ -15,7 +16,7 @@ class AbstractLogService(ABC):
         ...
     
     @abstractmethod
-    def emit_log(self, log_data):
+    def emit_log(self, log_group, log_stream, log_message):
         ...
 
 class CloudWachService(AbstractLogService):
@@ -36,5 +37,18 @@ class CloudWachService(AbstractLogService):
     def create_log_group(self, log_group):
         self.logs_client.create_log_group(logGroupName=log_group)
 
-    def emit_log(self, log_data):
-        return self.logs_client.put_log_events(**log_data)
+    def emit_log(self, log_group, log_stream, log_message):
+        timestamp = int(datetime.now(UTC).timestamp() * 1000)  # AWS uses milliseconds
+
+        log_event = {
+            'timestamp': timestamp,
+            'message': log_message
+        }
+																															
+        kwargs = {
+            'logGroupName': log_group,
+            'logStreamName': log_stream,
+            'logEvents': [log_event]
+        }
+        
+        return self.logs_client.put_log_events(**kwargs)
