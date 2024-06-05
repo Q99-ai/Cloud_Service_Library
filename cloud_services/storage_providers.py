@@ -1,5 +1,6 @@
 
 from abc import ABC, abstractmethod
+import os
 import boto3
 from botocore.config import Config
 
@@ -17,6 +18,10 @@ class AbstractStorageService(ABC):
     
     @abstractmethod
     def delete_file(self, bucket_name, file_path):
+        ...
+
+    @abstractmethod
+    def dowload_file(self, bucket_name):
         ...
 
 class S3Service(AbstractStorageService):
@@ -41,3 +46,12 @@ class S3Service(AbstractStorageService):
     
     def delete_file(self, bucket_name, file_path):
         return self.s3_client.delete_object(Bucket=bucket_name, Key=file_path)
+    
+    def dowload_file(self, bucket_name, download_location, path_prefix=""):
+        bucket_objects=self.s3_client.list_objects_v2(Bucket=bucket_name, Prefix=path_prefix)
+        for s3_key in bucket_objects["Contents"]:
+            relative_path = os.path.relpath(s3_key["Key"], start=path_prefix)
+            local_file_path = os.path.join(download_location, relative_path)
+            local_dir_path = os.path.dirname(local_file_path)
+            os.makedirs(local_dir_path, exist_ok=True)
+            self.s3_client.download_file(bucket_name, s3_key["Key"], local_file_path)
