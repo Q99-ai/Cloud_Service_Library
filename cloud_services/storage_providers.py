@@ -55,3 +55,6 @@ class S3Service(AbstractStorageService):
             local_dir_path = os.path.dirname(local_file_path)
             os.makedirs(local_dir_path, exist_ok=True)
             self.s3_client.download_file(bucket_name, s3_key["Key"], local_file_path)
+    
+    def upload_bites_file(self, data, bucket_name, file_path):
+        return self.s3_client.upload_fileobj(data, bucket_name, file_path)
