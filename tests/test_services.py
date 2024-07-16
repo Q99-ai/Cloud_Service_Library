@@ -53,6 +53,23 @@ def test_aws_storage_service():
         os.remove(file_path)
     mock.stop()
 
+def test_aws_download_file_obj():
+    bucket_name = 'my-test-bucket'
+    download_location = 'testfile.txt'
+    file_content = b"Hello, world!"
+    
+    mock = mock_aws()
+    mock.start()
+
+    s3_provider: S3Service = get_cloud_service("aws", "storage")
+    s3_provider.s3_client.create_bucket(Bucket=bucket_name)
+    s3_provider.s3_client.put_object(Bucket=bucket_name, Key=download_location, Body=file_content)
+
+    downloaded_file = s3_provider.download_bites_file(bucket_name=bucket_name, file_location=download_location)
+    file_data = downloaded_file.read()
+    assert file_content == file_data
+
+
 def test_aws_logging_service():
     mock = mock_aws()
     mock.start()

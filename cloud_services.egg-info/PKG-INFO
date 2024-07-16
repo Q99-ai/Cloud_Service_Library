@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: cloud_services
-Version: 0.1.4
+Version: 0.1.5
 Summary: Library to connect to different cloud services
 Author: Q99
 Requires-Dist: boto3

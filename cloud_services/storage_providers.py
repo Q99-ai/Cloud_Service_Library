@@ -1,6 +1,7 @@
 
 from abc import ABC, abstractmethod
 import os
+import tempfile
 import boto3
 from botocore.config import Config
 
@@ -22,6 +23,14 @@ class AbstractStorageService(ABC):
 
     @abstractmethod
     def dowload_file(self, bucket_name):
+        ...
+    
+    @abstractmethod
+    def upload_bites_file(self, data, bucket_name, file_path):
+        ...
+    
+    @abstractmethod
+    def download_bites_file(self, bucket_name, download_location):
         ...
 
 class S3Service(AbstractStorageService):
@@ -58,3 +67,9 @@ class S3Service(AbstractStorageService):
     
     def upload_bites_file(self, data, bucket_name, file_path):
         return self.s3_client.upload_fileobj(data, bucket_name, file_path)
+    
+    def download_bites_file(self, bucket_name, file_location):
+        fp = tempfile.TemporaryFile()
+        self.s3_client.download_fileobj(Bucket=bucket_name, Key= file_location, Fileobj=fp)
+        fp.seek(0)
+        return fp

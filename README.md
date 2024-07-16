@@ -38,3 +38,8 @@ log_service.create_log_group("log_group_name")
 * AWS_KEY: aws access key
 * AWS_SECRET: aws secret key
 * AWS_REGION: aws region 
+
+
+
+
+python setup.py sdist bdist_wheel
