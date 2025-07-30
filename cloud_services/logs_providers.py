@@ -3,7 +3,6 @@ from datetime import UTC, datetime
 import boto3
 from botocore.config import Config
 
-
 from cloud_services.env_vars import AWS_KEY, AWS_REGION, AWS_SECRET, AWS_URL
 
 class AbstractLogService(ABC):
@@ -53,3 +52,4 @@ class CloudWachService(AbstractLogService):
         }
         
         return self.logs_client.put_log_events(**kwargs)
+    

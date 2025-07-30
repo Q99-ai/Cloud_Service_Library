@@ -18,4 +18,4 @@ COPY ./tests /code/tests
 COPY ./setup.py /code/setup.py
 COPY ./cloud_services.egg-info /code/cloud_services.egg-info
 COPY ./dist /code/dist
-COPY ./build /code/build
+#COPY ./build /code/build

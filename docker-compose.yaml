@@ -12,7 +12,7 @@ services:
       - ./setup.py:/code/setup.py
       - ./cloud_services.egg-info:/code/cloud_services.egg-info
       - ./dist:/code/dist
-      - ./build:/code/build
+#      - ./build:/code/build
     stdin_open: true  
     tty: true  
     environment:

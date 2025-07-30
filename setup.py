@@ -6,7 +6,7 @@ setup(
     version='0.1.5',
     description='Library to connect to different cloud services',
     author='Q99',
-    install_requires=["boto3"],
+    install_requires=["boto3", "azure-storage-blob", "azure-identity", ],
     tests_require=['pytest', 'moto[s3,logs]'],
     test_suite='tests'
 )

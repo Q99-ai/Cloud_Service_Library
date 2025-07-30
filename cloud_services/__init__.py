@@ -15,5 +15,3 @@ def get_cloud_service(cloud, service):
     
     
     return providers[cloud][service]()
-
-
