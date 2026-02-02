@@ -62,12 +62,31 @@ class S3Service(AbstractStorageService):
         "endpoint_url": AWS_URL,
     }
 
-    def __init__(self):
-        self.s3_client = boto3.client(
+    def __init__(self, aws_key=None, aws_secret=None, aws_url=None, aws_region=None):
+
+        s3_provided_keys = {
+            "aws_access_key_id": aws_key,
+            "aws_secret_access_key": aws_secret,
+            "endpoint_url": aws_url,
+            "region": aws_region
+        }
+
+        any_provided = any(v is not None for v in s3_provided_keys.values())
+
+        if any_provided:
+            s3_provided_keys.pop("region")
+            self.s3_client = boto3.client(
             "s3",
-            config=Config(region_name=AWS_REGION),
+            config=Config(region_name=aws_region),
             **self.s3_default,
         )
+        else:
+            self.s3_client = boto3.client(
+                "s3",
+                config=Config(region_name=AWS_REGION),
+                **self.s3_default,
+            )
+        self.s3_client.get_caller_identity()
 
     async def files_discovery(
         self,
@@ -165,8 +184,10 @@ class AzureBlobService(AbstractStorageService):
 
     connection_string = CONECTION_STRING
 
-    def __init__(self):
-        self.blob_service_client = BlobServiceClient.from_connection_string(self.connection_string)
+    def __init__(self, connection_string = None):
+        string = connection_string if connection_string else CONECTION_STRING
+        self.blob_service_client = BlobServiceClient.from_connection_string(string)
+        self.blob_service_client.get_account_information()
 
     async def files_discovery(
         self,

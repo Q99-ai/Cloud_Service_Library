@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8003:80"
+      - "8008:80"
     volumes:
       - ./cloud_services:/code/cloud_services
       - ./tests:/code/tests
